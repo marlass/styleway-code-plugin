@@ -32,7 +32,6 @@ script:
   - $PKG_CMD run test
 before_script:
   - greenkeeper-lockfile-update
-  - npm prune
 after_script: greenkeeper-lockfile-upload
 after_success:
   - npm run semantic-release
