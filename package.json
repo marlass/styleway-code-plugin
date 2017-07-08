@@ -1,6 +1,6 @@
 {
   "name": "styleway-code-plugin",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Plugin to upload your files to styleway style guide tool",
   "main": "dist/main.js",
   "repository": "git@github.com:marlass/styleway-code-plugin.git",
@@ -9,8 +9,9 @@
   "scripts": {
     "flow": "flow",
     "build": "webpack",
-    "prepublish": "yarn run build",
-    "test": "jest"
+    "prepublish": "npm run build",
+    "test": "jest",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -26,7 +27,8 @@
     "eslint-plugin-prettier": "^2.1.2",
     "jest": "^20.0.4",
     "prettier": "^1.5.2",
-    "webpack": "^3.1.0"
+    "webpack": "^3.1.0",
+    "semantic-release": "^6.3.6"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0"
