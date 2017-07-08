@@ -9,6 +9,9 @@ install:
   - ps: Install-Product node $env:node_version
   - npm install
 
+matrix:
+  fast_finish: true
+
 build_script:
   - npm run build
 
