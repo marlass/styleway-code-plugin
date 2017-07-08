@@ -1,0 +1,14 @@
+[ignore]
+./dist/.*
+webpack.config.js
+
+[include]
+./src/**
+
+[libs]
+types/
+babel-polyfill
+
+[options]
+module.file_ext=.js
+module.file_ext=.json
