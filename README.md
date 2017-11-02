@@ -9,3 +9,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code Climate](https://codeclimate.com/github/marlass/styleway-code-plugin/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 [![Issue Count](https://codeclimate.com/github/marlass/styleway-code-plugin/badges/issue_count.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+
+Code plugin for styleway
