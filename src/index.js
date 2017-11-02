@@ -24,7 +24,7 @@ glob(`${process.env.PWD}/${css}`, (err, filesCSS) => {
           form.append("source", fs.createReadStream(file))
         })
         filesAssets.forEach(file => {
-          form.append("css", fs.createReadStream(file))
+          form.append("assets", fs.createReadStream(file))
         })
         const keys = Object.keys(rest)
         keys.forEach(key => form.append(key, rest[key]))

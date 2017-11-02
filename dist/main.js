@@ -104,7 +104,7 @@ glob(`${process.env.PWD}/${css}`, function (err, filesCSS) {
           form.append("source", fs.createReadStream(file));
         });
         filesAssets.forEach(function (file) {
-          form.append("css", fs.createReadStream(file));
+          form.append("assets", fs.createReadStream(file));
         });
         var keys = Object.keys(rest);
         keys.forEach(function (key) {
