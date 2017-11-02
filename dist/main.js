@@ -70,12 +70,65 @@
 "use strict";
 
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 /* eslint-disable no-console */
 __webpack_require__(1);
-var another = __webpack_require__(2);
+var fs = __webpack_require__(2);
+var fetch = __webpack_require__(3);
+var glob = __webpack_require__(4);
+var FormData = __webpack_require__(5);
 
-console.log("Hello");
-another();
+var result = fs.readFileSync(`${process.env.PWD}/styleway.json`, "utf8");
+var config = JSON.parse(result);
+
+var url = config.url,
+    css = config.css,
+    js = config.js,
+    source = config.source,
+    assets = config.assets,
+    rest = _objectWithoutProperties(config, ["url", "css", "js", "source", "assets"]);
+
+glob(`${process.env.PWD}/${css}`, function (err, filesCSS) {
+  glob(`${process.env.PWD}/${js}`, function (err2, filesJS) {
+    glob(`${process.env.PWD}/${source}`, function (err3, filesSource) {
+      glob(`${process.env.PWD}/${assets}`, function (err4, filesAssets) {
+        var form = new FormData();
+        filesCSS.forEach(function (file) {
+          form.append("css", fs.createReadStream(file));
+        });
+        filesJS.forEach(function (file) {
+          form.append("js", fs.createReadStream(file));
+        });
+        filesSource.forEach(function (file) {
+          form.append("source", fs.createReadStream(file));
+        });
+        filesAssets.forEach(function (file) {
+          form.append("css", fs.createReadStream(file));
+        });
+        var keys = Object.keys(rest);
+        keys.forEach(function (key) {
+          return form.append(key, rest[key]);
+        });
+
+        fetch(`${config.url}codePlugin/uploadFiles`, {
+          headers: form.getHeaders(),
+          method: "POST",
+          body: form
+        }).then(function (res) {
+          if (res.status === 200) {
+            console.log("Successfully uploaded files");
+          } else {
+            console.log("There was an error");
+            console.log(res);
+          }
+        }).catch(function (err5) {
+          return console.log(err5);
+        });
+      });
+    });
+  });
+});
 
 /***/ }),
 /* 1 */
@@ -85,15 +138,27 @@ module.exports = require("babel-polyfill");
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
+module.exports = require("fs");
 
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
 
-/* eslint-disable no-console */
-module.exports = function () {
-  return console.log("from styleway code plugin");
-};
+module.exports = require("node-fetch");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("glob");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("form-data");
 
 /***/ })
 /******/ ]);
